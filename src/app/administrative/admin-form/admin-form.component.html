@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{createMode ? 'Crear Elemento' : 'Editar Elemento'}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+  <div class="modal-body">
+    <form [formGroup]="Form" (ngSubmit)="addElements()">
+      <div class="form-group">
+        <label for="codProd">Codigo del Producto</label>
+        <input type="text" id="codProd" placeholder="Codigo Producto" class="form-control" formControlName="codProd" />
+        <span style="color:Red;" *ngIf="Form.controls['codProd'].touched && Form.controls['codProd'].errors?.required">Codigo Producto
+          is required.</span>
+      </div>
+      <div class="form-group">
+        <label for="desProd">Descripción del Producto</label>
+        <textarea  id="desProd" placeholder="Descripción" class="form-control" formControlName="desProd"></textarea>
+        <span style="color:Red;" *ngIf="Form.controls['desProd'].touched && Form.controls['desProd'].errors?.required">Description
+          is required.</span>
+      </div>
+      <div class="form-group">
+        <label for="codProv">Codigo del Proveedor</label>
+        <input type="text" id="codProv" placeholder="Codigo Proveedor" class="form-control" formControlName="codProv">
+        <span style="color:Red;" *ngIf="Form.controls['desProd'].touched && Form.controls['desProd'].errors?.required">Codigo Proveedor
+            is required.</span>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="done" formControlName="done">
+        <label class="form-check-label" for="done">
+          Done
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button class="btn btn-primary" (click)="addElements()" [disabled]="Form.invalid">Save</button>
+  </div>

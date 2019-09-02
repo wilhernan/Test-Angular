@@ -1,0 +1,42 @@
+<h4>Administrative Page</h4>
+
+    <label>Tipo de Elemento: </label>
+    <select [(ngModel)]="opcionSeleccionada" (change)="clickAdd()">
+        <option value="0" >Seleccione... </option>
+        <option *ngFor="let dato of datos"> {{dato}} </option>      
+    </select>  
+
+
+<table class="table table-striped" *ngIf="elems && elems.length > 0">
+    <thead>
+        <tr>
+            <th ></th>
+            <th *ngIf="opcionSeleccionada != 'inventario'; else empty">Descripción</th>
+            <th >Código</th>
+            <th *ngIf="opcionSeleccionada === 'productos'; else empty">Proveedor</th>
+            <th *ngIf="opcionSeleccionada === 'inventario'; else empty">Cantidad</th>
+            <th *ngIf="opcionSeleccionada === 'inventario'; else empty">Fecha</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let elem of elems, let index = index">
+            <td><input type="checkbox" [checked]="elem.done" (change)="checkedDone(index)" /></td>
+            <td *ngIf="elem.tipo === 'p'; else empty">{{elem.desProd}}</td>
+            <td *ngIf="elem.tipo === 'p'; else empty">{{elem.codProd}}</td>
+            <td *ngIf="elem.tipo === 'p'; else empty">{{elem.codProv}}</td>
+            <td *ngIf="elem.tipo === 'pv'; else empty">{{elem.desProv}}</td>
+            <td *ngIf="elem.tipo === 'pv'; else empty">{{elem.codProv}}</td>
+            <td *ngIf="elem.tipo === 'i'; else empty">{{elem.codProd}}</td>
+            <td *ngIf="elem.tipo === 'i'; else empty">{{elem.cantProd}}</td>
+            <td *ngIf="elem.tipo === 'i'; else empty">{{elem.fecComp}}</td>
+            <td *ngIf="elem.tipo === 't'; else empty">{{elem.desTien}}</td>
+            <td *ngIf="elem.tipo === 't'; else empty">{{elem.codTien}}</td>
+            <td>
+                <button class="btn btn-primary" (click)="handleCreateClick(elem)">Crear</button>
+                <button class="btn btn-primary" (click)="handleEditClick(elem)">Editar</button>
+                <button class="btn btn-danger" (click)="handleDeleteClick(elem.id, index)">Borrar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
